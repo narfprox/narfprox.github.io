@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Jean Franco Sánchez Pita. DevOps, SRE and Platform Engineer. Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery.">
+<title>Jean Sánchez · Platform Engineering</title>
+<link rel="canonical" href="https://narfprox.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%235B5FD6%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E">
+
+<!-- What LinkedIn, Slack and Teams show when the page is shared. Absolute URLs
+     are required: a relative og:image is silently ignored by every one of them. -->
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Jean Franco Sánchez Pita">
+<meta property="og:title" content="Jean Franco Sánchez Pita · DevOps, SRE and Platform Engineer">
+<meta property="og:description" content="Azure landing zone, AKS clusters, the data tier around them, delivery pipelines, observability, and the cost of all of it. Infrastructure as code, applied by pipelines, decisions written down.">
+<meta property="og:url" content="https://narfprox.github.io/">
+<meta property="og:image" content="https://narfprox.github.io/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jean Franco Sánchez Pita · DevOps, SRE and Platform Engineer">
+<meta name="twitter:description" content="Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery. Seven repositories, one platform.">
+<meta name="twitter:image" content="https://narfprox.github.io/assets/social-card.png">
+
+<!-- preconnect so the font request starts before the stylesheet is parsed -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F7F7FB;
+    --surface: #FFFFFF;
+    --surface-2: #F0F0F7;
+    --line: #E3E4EE;
+    --line-2: #CFD1E0;
+    --ink: #22242E;
+    --ink-2: #585C6E;
+    --ink-3: #8B8FA3;
+    --accent: #5B5FD6;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E9E8FA;
+    --lilac: #E9E4F9; --sky: #DDEBFA; --mint: #DCF2E8; --peach: #FDE7DA; --butter: #FBF0CF; --rose: #FAE2E9;
+    --lift: 0%;
+    --shadow: 0 1px 2px rgba(34,36,46,.04), 0 12px 32px -20px rgba(34,36,46,.25);
+    --sans: "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --mono: "Geist Mono", "Cascadia Code", Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14151B; --surface: #1C1D25; --surface-2: #23242E; --line: #2C2D3A; --line-2: #3A3C4C;
+      --ink: #ECEDF3; --ink-2: #B2B5C4; --ink-3: #767A8E; --accent: #8C8FF0; --accent-ink: #14151B; --accent-soft: #2A2B4A;
+      --lilac: #2E2A44; --sky: #23304A; --mint: #1F3A31; --peach: #43302A; --butter: #3F3826; --rose: #402A34;
+      --lift: 28%; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -20px rgba(0,0,0,.8);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14151B; --surface: #1C1D25; --surface-2: #23242E; --line: #2C2D3A; --line-2: #3A3C4C;
+    --ink: #ECEDF3; --ink-2: #B2B5C4; --ink-3: #767A8E; --accent: #8C8FF0; --accent-ink: #14151B; --accent-soft: #2A2B4A;
+    --lilac: #2E2A44; --sky: #23304A; --mint: #1F3A31; --peach: #43302A; --butter: #3F3826; --rose: #402A34;
+    --lift: 28%; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -20px rgba(0,0,0,.8);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15.5px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3, p, ul { margin: 0; } ul { padding: 0; list-style: none; }
+  h1, h2, h3 { font-weight: 600; letter-spacing: -.015em; text-wrap: balance; }
+  .mono { font-family: var(--mono); font-size: 12.5px; }
+  .num { font-variant-numeric: tabular-nums; }
+  svg.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  .page { max-width: 1120px; margin: 0 auto; padding-inline: clamp(16px, 3vw, 32px); padding-block: 0 56px; }
+
+  /* nav */
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+  .nav .who { font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .nav .who i { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .nav ul { display: flex; gap: 22px; font-size: 14px; font-weight: 500; }
+  .nav ul a { color: var(--ink-2); } .nav ul a:hover { color: var(--accent); text-decoration: none; }
+  @media (max-width: 720px) { .nav ul { display: none; } }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-block: 56px 40px; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 36px 28px; } }
+  .hero .role { font: 500 12.5px var(--mono); color: var(--accent); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.12; }
+  .hero h1 span { color: var(--ink-3); font-weight: 500; }
+  .hero p { margin-top: 18px; font-size: 17px; color: var(--ink-2); max-width: 52ch; line-height: 1.55; }
+  .hero .meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13.5px; color: var(--ink-3); }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 14px; border: 1px solid var(--line-2); color: var(--ink); background: var(--surface); }
+  .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.primary:hover { color: var(--accent-ink); filter: brightness(1.08); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .illus { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); }
+  .illus svg { display: block; width: 100%; height: auto; max-width: 100%; }
+  .illus text { font-family: var(--mono); font-size: 10px; fill: var(--ink-2); }
+  .illus .t2 { fill: var(--ink-3); font-size: 9px; }
+  .illus .flow { stroke: var(--accent); stroke-width: 1.5; fill: none; stroke-dasharray: 4 6; animation: flow 1.6s linear infinite; }
+  .illus .wire { stroke: var(--line-2); stroke-width: 1.5; fill: none; }
+  .illus .box { stroke: var(--line-2); stroke-width: 1; }
+  @keyframes flow { to { stroke-dashoffset: -20; } }
+  @media (prefers-reduced-motion: reduce) { .illus .flow { animation: none; } }
+
+  /* tools band */
+  .tools { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); gap: 10px; padding-block: 8px 48px; }
+  @media (max-width: 1000px) { .tools { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .tools { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .tool { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 11.5px; color: var(--ink-2); text-align: center; }
+  .tile { width: 100%; aspect-ratio: 1; max-width: 68px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--b) 13%, var(--surface)); border: 1px solid color-mix(in srgb, var(--b) 22%, var(--line)); color: color-mix(in srgb, var(--b), white var(--lift)); transition: transform .15s; }
+  .tool:hover .tile { transform: translateY(-3px); }
+  .tile svg { width: 56%; height: 56%; }
+  .ico { width: 18px; height: 18px; border-radius: 5px; display: inline-grid; place-items: center; background: color-mix(in srgb, var(--b) 14%, var(--surface)); color: color-mix(in srgb, var(--b), white var(--lift)); vertical-align: -4px; }
+  .ico svg { width: 70%; height: 70%; }
+
+  /* sections */
+  .sec { padding-block: 44px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 22px; scroll-margin-top: 20px; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .sec h2 { font-size: 24px; }
+  .sec-head .k { font: 500 12.5px var(--mono); color: var(--ink-3); }
+  .intro { color: var(--ink-2); max-width: 64ch; font-size: 16px; }
+
+  /* work index */
+  .idx { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 1.5fr 2.4fr 1.15fr 108px; gap: 20px; padding: 18px 22px; border-bottom: 1px solid var(--line); align-items: start; transition: background .15s, box-shadow .15s; scroll-margin-top: 90px; }
+  .row:last-child { border-bottom: 0; }
+  .row.hd { padding-block: 10px; background: var(--surface-2); font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+  .row:not(.hd):hover, .row.lit { background: var(--accent-soft); }
+  .row.flash { box-shadow: inset 3px 0 0 var(--accent); }
+  @media (max-width: 900px) { .row { grid-template-columns: 1fr 1fr; } .row.hd { display: none; } .row .desc { grid-column: 1 / -1; } }
+  .row .name { font-size: 16px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .row .name a { color: var(--ink); } .row .name a:hover { color: var(--accent); text-decoration: none; }
+  .row .kind { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+  .row .kind span { font: 400 12px var(--mono); color: var(--ink-3); margin-left: 4px; }
+  .row .desc { color: var(--ink-2); font-size: 14.5px; line-height: 1.55; }
+  .row .desc b { color: var(--ink); font-weight: 600; }
+  .row .desc code { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+  .row .stack { font: 400 12.5px/1.7 var(--mono); color: var(--ink-2); }
+  .row .st { font: 500 11.5px/1.5 var(--mono); text-align: right; text-transform: uppercase; letter-spacing: .04em; }
+  .row .st.live { color: var(--accent); } .row .st.wip { color: var(--ink-3); }
+  @media (max-width: 900px) { .row .st { text-align: left; } }
+  .idx-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font: 12.5px var(--mono); color: var(--ink-3); }
+
+  /* platform layers */
+  .layers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 900px) { .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .layers { grid-template-columns: 1fr; } }
+  .layer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; text-align: left; font: inherit; color: inherit; transition: transform .15s, border-color .15s, box-shadow .15s; }
+  .layer:hover, .layer:focus-visible { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .layer .lh { display: flex; align-items: center; gap: 10px; }
+  .layer .lh i { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--tint); color: var(--ink); flex: none; }
+  .layer .lh i svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .layer h3 { font-size: 14.5px; }
+  .layer ul { font-size: 13px; color: var(--ink-2); line-height: 1.5; display: flex; flex-direction: column; gap: 3px; }
+  .layer .rel { margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--line); font: 400 11.5px/1.5 var(--mono); color: var(--ink-3); }
+  .layer .rel b { font-weight: 500; color: var(--ink-3); }
+  .layer:hover .rel, .layer:focus-visible .rel { color: var(--accent); }
+
+  /* method */
+  .method { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 1000px) { .method { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .method { grid-template-columns: 1fr; } }
+  .m { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px 20px; }
+  .m .n { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; margin-bottom: 14px; background: var(--tint); }
+  .m .n svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .m h3 { font-size: 16px; margin-bottom: 8px; }
+  .m p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .m code { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+
+  /* stack */
+  .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 6px 22px; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+  .kv { display: grid; grid-template-columns: 118px 1fr; gap: 14px; padding-block: 13px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .cols .kv:nth-last-child(-n+2) { border-bottom: 0; }
+  @media (max-width: 700px) { .cols .kv:nth-last-child(2) { border-bottom: 1px solid var(--line); } }
+  .kv b { font-weight: 600; font-size: 13.5px; padding-top: 1px; }
+  .kv span { color: var(--ink-2); line-height: 1.5; }
+
+  /* contact */
+  .contact { background: linear-gradient(135deg, var(--lilac), var(--sky)); border-radius: 16px; padding: 30px 32px; display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; }
+  .portrait { width: 132px; height: 164px; border-radius: 14px; object-fit: cover; object-position: 50% 12%; display: block; border: 3px solid var(--surface); box-shadow: var(--shadow); }
+  @media (max-width: 860px) { .contact { grid-template-columns: auto 1fr; } .contact .btns { grid-column: 1 / -1; } }
+  @media (max-width: 560px) { .contact { grid-template-columns: 1fr; padding: 26px 22px; } .portrait { width: 112px; height: 140px; } }
+  .contact h2 { font-size: 24px; }
+  .contact p { margin-top: 8px; color: var(--ink-2); max-width: 50ch; font-size: 15px; }
+  .contact .btns { margin-top: 0; }
+
+  footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 22px; margin-top: 24px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+</style>
+
+</head>
+<body>
+<!-- icon symbols: tech marks drawn from simple shapes -->
+<svg class="defs" aria-hidden="true">
+  <symbol id="i-tf" viewBox="0 0 24 24"><g fill="currentColor"><polygon points="1.5,3 8.5,7 8.5,15 1.5,11"/><polygon points="9.5,7.6 16.5,3.6 16.5,11.6 9.5,15.6"/><polygon points="9.5,16.6 16.5,12.6 16.5,20.6 9.5,24.6"/><polygon points="17.5,7.6 22.5,4.7 22.5,12.7 17.5,15.6" opacity=".7"/></g></symbol>
+  <symbol id="i-az" viewBox="0 0 24 24"><g fill="currentColor"><polygon points="9,3 15,3 22,21 16.5,21 12.5,10 8,19 3,19"/><polygon points="9.5,21 13.2,12.6 17,21" opacity=".55"/></g></symbol>
+  <symbol id="i-k8" viewBox="0 0 24 24"><polygon points="12,1.5 21.5,6.2 23.5,16.5 17,23 7,23 .5,16.5 2.5,6.2" fill="currentColor"/><circle cx="12" cy="12.5" r="5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12.5" r="1.4" fill="#fff"/><g stroke="#fff" stroke-width="1.4"><line x1="12" y1="7.5" x2="12" y2="9.6"/><line x1="12" y1="15.4" x2="12" y2="17.5"/><line x1="7" y1="12.5" x2="9.1" y2="12.5"/><line x1="14.9" y1="12.5" x2="17" y2="12.5"/></g></symbol>
+  <symbol id="i-helm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><line x1="12" y1="1.5" x2="12" y2="5.5"/><line x1="12" y1="18.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5.5" y2="12"/><line x1="18.5" y1="12" x2="22.5" y2="12"/><line x1="4.6" y1="4.6" x2="7.4" y2="7.4"/><line x1="16.6" y1="16.6" x2="19.4" y2="19.4"/><line x1="19.4" y1="4.6" x2="16.6" y2="7.4"/><line x1="7.4" y1="16.6" x2="4.6" y2="19.4"/></g></symbol>
+  <symbol id="i-ans" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><polygon points="12,5 18.2,18.5 15.6,18.5 12,9.9 9.1,16 12.9,16 13.7,17.8 6.2,18.5" fill="#fff"/></symbol>
+  <symbol id="i-ado" viewBox="0 0 24 24"><polygon points="2,8.5 7.5,6.8 7.5,3.8 20.5,1.5 20.5,18.7 7.5,22.5 7.5,18.8 2,17.2" fill="currentColor"/><polygon points="7.5,6.8 20.5,9 20.5,18.7 7.5,18.8" fill="#fff" opacity=".28"/></symbol>
+  <symbol id="i-gha" viewBox="0 0 24 24"><circle cx="9.5" cy="9.5" r="7.5" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="7.5,6 13,9.5 7.5,13" fill="currentColor"/><circle cx="18" cy="18" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="1.2" fill="currentColor"/><path d="M14.5 16.5 L13 15" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
+  <symbol id="i-prom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 4.5 C13.5 7.5 16.5 9 16.5 12.5 C16.5 15.4 14.5 17.2 12 17.2 C9.5 17.2 7.5 15.4 7.5 12.5 C7.5 10.8 8.3 9.6 9.4 8.6 C9.2 10.4 10 11.4 11 11.6 C10.3 9 11.2 6.7 12 4.5 Z" fill="#fff"/><rect x="8.6" y="18.2" width="6.8" height="1.6" rx=".8" fill="#fff"/></symbol>
+  <symbol id="i-es" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="5" rx="2.5" fill="#F9C82B"/><rect x="5.5" y="9.5" width="15.5" height="5" rx="2.5" fill="#20B7C0"/><rect x="3" y="16" width="18" height="5" rx="2.5" fill="#EE4C8B"/></symbol>
+  <symbol id="i-py" viewBox="0 0 24 24"><rect x="4.5" y="1.5" width="10" height="10.5" rx="3.5" fill="#3B7DC4"/><rect x="9.5" y="12" width="10" height="10.5" rx="3.5" fill="#F2C233"/><circle cx="8" cy="5" r="1.1" fill="#fff"/><circle cx="16" cy="19" r="1.1" fill="#fff"/><rect x="9.5" y="9" width="5" height="3" fill="#3B7DC4"/><rect x="9.5" y="12" width="5" height="3" fill="#F2C233"/></symbol>
+  <symbol id="i-cf" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="8" cy="14" r="5"/><circle cx="13.5" cy="11.5" r="6"/><circle cx="18" cy="14.5" r="4.5"/><rect x="8" y="14" width="10" height="5" /></g><g fill="#fff" opacity=".5"><circle cx="16.5" cy="9" r="2.6"/><circle cx="19.5" cy="10.5" r="2"/></g></symbol>
+  <symbol id="i-dk" viewBox="0 0 24 24"><g fill="currentColor"><rect x="4" y="9" width="3.4" height="3.4" rx=".6"/><rect x="8" y="9" width="3.4" height="3.4" rx=".6"/><rect x="12" y="9" width="3.4" height="3.4" rx=".6"/><rect x="8" y="5" width="3.4" height="3.4" rx=".6"/><rect x="12" y="5" width="3.4" height="3.4" rx=".6"/><rect x="12" y="1" width="3.4" height="3.4" rx=".6"/><path d="M1 13.5h18.5c1.5-.6 2.6-1.6 3.3-2.6.7.2 1.2.7 1.2.7-.4 1.6-1.5 2.4-3 2.6-.6 4.4-4.2 7.3-9.5 7.3C6 21.5 2 18.3 1 13.5z"/></g></symbol>
+  <symbol id="i-aws" viewBox="0 0 24 24"><text x="12" y="12.5" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="9.5" fill="currentColor">aws</text><path d="M4 16.5c4.5 3 11 3.2 16 .3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><polyline points="17.5,15.2 20,16.8 18.6,19.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-gcp" viewBox="0 0 24 24"><circle cx="8" cy="14" r="5" fill="#4285F4"/><circle cx="13.5" cy="10.5" r="6" fill="#EA4335"/><circle cx="18" cy="14.5" r="4.5" fill="#34A853"/><rect x="8" y="14" width="10" height="5" fill="#FBBC05"/><circle cx="13" cy="15" r="3.6" fill="#fff"/></symbol>
+  <symbol id="i-jk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><text x="12" y="16.8" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="#fff">J</text></symbol>
+  <!-- layer glyphs: strokes -->
+  <symbol id="l-found" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
+  <symbol id="l-comp" viewBox="0 0 24 24"><polygon points="12,2.5 20.5,7.2 20.5,16.8 12,21.5 3.5,16.8 3.5,7.2"/><polyline points="12,21.5 12,12 20.5,7.2"/><line x1="12" y1="12" x2="3.5" y2="7.2"/></symbol>
+  <symbol id="l-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="l-deliv" viewBox="0 0 24 24"><circle cx="4.5" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="19.5" cy="12" r="2.5"/><line x1="7" y1="12" x2="9.5" y2="12"/><line x1="14.5" y1="12" x2="17" y2="12"/><polyline points="12,4 12,7 14,5.5"/></symbol>
+  <symbol id="l-edge" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M5 7.5h14M5 16.5h14"/></symbol>
+  <symbol id="l-obs" viewBox="0 0 24 24"><polyline points="2,13 6,13 8.5,6 11.5,18 14.5,10 16.5,13 22,13"/></symbol>
+  <symbol id="l-res" viewBox="0 0 24 24"><path d="M12 2.5 20 6v6c0 5-3.5 8.2-8 9.5C7.5 20.2 4 17 4 12V6l8-3.5z"/><polyline points="8.5,12 11,14.5 15.5,9.5"/></symbol>
+  <symbol id="l-cost" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.2A3.5 3.5 0 1 0 15 14.8"/><line x1="7.5" y1="11" x2="13" y2="11"/><line x1="7.5" y1="13" x2="13" y2="13"/></symbol>
+  <symbol id="l-ci" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><polyline points="7,10 10,12.5 7,15"/><line x1="12.5" y1="15" x2="17" y2="15"/></symbol>
+  <symbol id="l-cd" viewBox="0 0 24 24"><path d="M4 16.5h11.5a4.5 4.5 0 0 0 .7-8.9A6 6 0 0 0 5 9.5a3.5 3.5 0 0 0-1 7z"/><polyline points="10,13 12,15 14.5,11.5"/></symbol>
+  <symbol id="l-book" viewBox="0 0 24 24"><path d="M12 6.5c-2-1.5-4.5-2-8-2v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-13c-3.5 0-6 .5-8 2z"/><line x1="12" y1="6.5" x2="12" y2="19.5"/></symbol>
+  <symbol id="l-term" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="3"/><polyline points="6.5,9 10,12 6.5,15"/><line x1="12" y1="15.5" x2="17.5" y2="15.5"/></symbol>
+  <symbol id="l-code" viewBox="0 0 24 24"><polyline points="8,7 3,12 8,17"/><polyline points="16,7 21,12 16,17"/><line x1="13.5" y1="5" x2="10.5" y2="19"/></symbol>
+  <symbol id="l-check" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><polyline points="7.5,12.5 10.5,15.5 16.5,8.5"/></symbol>
+  <symbol id="l-doc" viewBox="0 0 24 24"><path d="M6 2.5h8l5 5V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><polyline points="14,2.5 14,7.5 19,7.5"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></symbol>
+</svg>
+
+<div class="page">
+  <nav class="nav" aria-label="Main">
+    <div class="who"><i aria-hidden="true"></i>Jean Franco Sánchez Pita</div>
+    <ul>
+      <li><a href="#work">Work</a></li><li><a href="#platform">Platform</a></li><li><a href="#method">Method</a></li><li><a href="#stack">Stack</a></li><li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.linkedin.com/in/jean-franco-s%C3%A1nchez-pita-1a084576" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+      <li><a href="https://github.com/narfprox" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="role">DevOps · SRE · Platform Engineer</div>
+      <h1>I build production infrastructure, run the lifecycle of the code that lives on it, <span>and put the observability in place that lets the platform scale.</span></h1>
+      <p>From the Azure landing zone and the Kubernetes clusters, through CI, QA and CD for every service, to the metrics, logs and alerts that keep it running. End to end, as code, with the decisions written down.</p>
+      <div class="meta"><span>Vigo, Spain · Remote</span><span>Spanish · English</span><span>DevOps, SRE and Platform Engineer</span></div>
+      <div class="btns">
+        <a class="btn primary" href="#work">See the work</a>
+        <a class="btn" href="https://github.com/narfprox" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+      </div>
+    </div>
+
+    <div class="illus" aria-label="Diagram: Cloudflare edge above a hub network, spokes to pre, pro and a DR region, with a delivery pipeline feeding the hub">
+      <svg viewBox="0 0 520 360" role="img">
+        <!-- edge cloud -->
+        <g>
+          <path d="M216 62 A14 14 0 0 1 238 40 A24 24 0 0 1 288 40 A14 14 0 0 1 310 62 Z" fill="var(--peach)" class="box"/>
+          <text x="263" y="53" text-anchor="middle">edge · waf · dns</text>
+        </g>
+        <!-- pipeline -->
+        <g>
+          <rect x="14" y="98" width="150" height="58" rx="10" fill="var(--mint)" class="box"/>
+          <text x="89" y="118" text-anchor="middle">delivery pipeline</text>
+          <circle cx="44" cy="138" r="5" fill="var(--accent)"/><circle cx="89" cy="138" r="5" fill="var(--accent)"/><circle cx="134" cy="138" r="5" fill="var(--accent)"/>
+          <line x1="49" y1="138" x2="84" y2="138" class="wire"/><line x1="94" y1="138" x2="129" y2="138" class="wire"/>
+          <text x="44" y="153" text-anchor="middle" class="t2">plan</text><text x="89" y="153" text-anchor="middle" class="t2">approve</text><text x="134" y="153" text-anchor="middle" class="t2">apply</text>
+        </g>
+        <!-- hub -->
+        <rect x="196" y="100" width="134" height="56" rx="10" fill="var(--sky)" class="box"/>
+        <text x="263" y="122" text-anchor="middle">hub vnet</text>
+        <text x="263" y="138" text-anchor="middle" class="t2">vpn · nat · jump · dns</text>
+        <!-- data -->
+        <g>
+          <ellipse cx="440" cy="106" rx="34" ry="9" fill="var(--butter)" class="box"/><rect x="406" y="106" width="68" height="40" fill="var(--butter)"/><ellipse cx="440" cy="146" rx="34" ry="9" fill="var(--butter)" class="box"/>
+          <line x1="406" y1="106" x2="406" y2="146" class="box" stroke="var(--line-2)"/><line x1="474" y1="106" x2="474" y2="146" stroke="var(--line-2)"/>
+          <text x="440" y="130" text-anchor="middle">mysql ha</text>
+          <text x="440" y="165" text-anchor="middle" class="t2">postgres · redis · nfs</text>
+        </g>
+        <!-- spokes -->
+        <g>
+          <rect x="40" y="250" width="130" height="86" rx="10" fill="var(--lilac)" class="box"/>
+          <text x="105" y="272" text-anchor="middle">aks · pre</text>
+          <circle cx="80" cy="300" r="7" fill="var(--accent)" opacity=".55"/><circle cx="105" cy="300" r="7" fill="var(--accent)" opacity=".55"/><circle cx="130" cy="300" r="7" fill="var(--accent)" opacity=".55"/>
+          <text x="105" y="325" text-anchor="middle" class="t2">10.130.0.0/16</text>
+        </g>
+        <g>
+          <rect x="195" y="250" width="130" height="86" rx="10" fill="var(--lilac)" class="box"/>
+          <text x="260" y="272" text-anchor="middle">aks · pro</text>
+          <circle cx="225" cy="300" r="7" fill="var(--accent)"/><circle cx="250" cy="300" r="7" fill="var(--accent)"/><circle cx="275" cy="300" r="7" fill="var(--accent)"/><circle cx="300" cy="300" r="7" fill="var(--accent)"/>
+          <text x="260" y="325" text-anchor="middle" class="t2">10.140.0.0/16</text>
+        </g>
+        <g>
+          <rect x="350" y="250" width="130" height="86" rx="10" fill="var(--surface-2)" stroke="var(--line-2)" stroke-dasharray="5 4"/>
+          <text x="415" y="272" text-anchor="middle">aks · dr</text>
+          <circle cx="395" cy="300" r="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/><circle cx="420" cy="300" r="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/><circle cx="445" cy="300" r="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+          <text x="415" y="325" text-anchor="middle" class="t2">warm standby · region 2</text>
+        </g>
+        <!-- wires -->
+        <path d="M263 64 V100" class="flow"/>
+        <path d="M164 128 H196" class="flow"/>
+        <path d="M263 156 V200 H105 V250" class="wire"/>
+        <path d="M263 156 V250" class="flow"/>
+        <path d="M263 156 V200 H415 V250" class="wire"/>
+        <path d="M330 128 H406" class="wire"/>
+        <path d="M325 300 H350" class="wire" stroke-dasharray="3 3"/>
+        <text x="337" y="292" text-anchor="middle" class="t2">repl</text>
+      </svg>
+    </div>
+  </section>
+
+  <div class="tools" aria-label="Main tools">
+    <a class="tool" href="#p-aks-saas-platform-terraform" style="--b:#844FBA"><span class="tile"><svg><use href="#i-tf"/></svg></span>Terraform</a>
+    <a class="tool" href="#p-azure-landing-zone-terraform" style="--b:#0078D4"><span class="tile"><svg><use href="#i-az"/></svg></span>Azure</a>
+    <a class="tool" href="#p-aks-platform-helm-charts" style="--b:#326CE5"><span class="tile"><svg><use href="#i-k8"/></svg></span>Kubernetes</a>
+    <a class="tool" href="#p-aks-platform-helm-charts" style="--b:#2B5FD9"><span class="tile"><svg><use href="#i-helm"/></svg></span>Helm</a>
+    <a class="tool" href="#p-aks-platform-helm-charts" style="--b:#1D63ED"><span class="tile"><svg><use href="#i-dk"/></svg></span>Docker</a>
+    <a class="tool" href="#p-ansible-linux-platform" style="--b:#E0322A"><span class="tile"><svg><use href="#i-ans"/></svg></span>Ansible</a>
+    <a class="tool" href="#p-azure-devops-pipeline-library" style="--b:#0078D7"><span class="tile"><svg><use href="#i-ado"/></svg></span>Azure DevOps</a>
+    <a class="tool" href="#p-sre-alert-triage-bot" style="--b:#2088FF"><span class="tile"><svg><use href="#i-gha"/></svg></span>GitHub Actions</a>
+    <a class="tool" href="#p-aks-platform-helm-charts" style="--b:#E6522C"><span class="tile"><svg><use href="#i-prom"/></svg></span>Prometheus</a>
+    <a class="tool" href="#p-aks-platform-helm-charts" style="--b:#20B7C0"><span class="tile"><svg><use href="#i-es"/></svg></span>Elastic</a>
+    <a class="tool" href="#p-sre-alert-triage-bot" style="--b:#3B7DC4"><span class="tile"><svg><use href="#i-py"/></svg></span>Python</a>
+    <a class="tool" href="#p-aks-saas-platform-terraform" style="--b:#F38020"><span class="tile"><svg><use href="#i-cf"/></svg></span>Cloudflare</a>
+    <a class="tool" href="#p-azure-devops-pipeline-library" style="--b:#D33833"><span class="tile"><svg><use href="#i-jk"/></svg></span>Jenkins</a>
+    <a class="tool" href="#stack" style="--b:#E8862B"><span class="tile"><svg><use href="#i-aws"/></svg></span>AWS</a>
+    <a class="tool" href="#stack" style="--b:#4285F4"><span class="tile"><svg><use href="#i-gcp"/></svg></span>Google Cloud</a>
+  </div>
+
+  <section class="sec" id="work">
+    <div class="sec-head"><h2>Index of work</h2></div>
+    <p class="intro">A sample of my experience: projects I have carried out myself from start to finish. Each repository has a concrete purpose and its own documentation and intent, and carries its own code lifecycle: CI, QA and CD.</p>
+
+    <div class="idx">
+      <div class="row hd"><span>Repository</span><span>Scope</span><span>Stack</span><span style="text-align:right">Status</span></div>
+
+      <div class="row" id="p-aks-saas-platform-terraform" data-repo="aks-saas-platform-terraform">
+        <div class="name"><a href="https://github.com/narfprox/aks-saas-platform-terraform" target="_blank" rel="noopener">aks-saas-platform-terraform</a>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#326CE5"><svg><use href="#i-k8"/></svg></i><i class="ico" style="--b:#F38020"><svg><use href="#i-cf"/></svg></i><span>15 roots · 17 pipelines</span></div></div>
+        <div class="desc"><b>Multi-tenant SaaS on AKS.</b> Two subscriptions, pre / pro and a warm-standby DR region, the data tier around the clusters (zone-redundant MySQL, PostgreSQL, Redis, NFS, Cosmos DB), the Cloudflare edge and the satellite stacks that ride on the clusters. A DR lifecycle you can rehearse.</div>
+        <div class="stack">terraform · azurerm 4<br>aks · cloudflare<br>elk · kube-prometheus · redash</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-azure-landing-zone-terraform" data-repo="azure-landing-zone-terraform">
+        <div class="name"><a href="https://github.com/narfprox/azure-landing-zone-terraform" target="_blank" rel="noopener">azure-landing-zone-terraform</a>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><i class="ico" style="--b:#0078D7"><svg><use href="#i-ado"/></svg></i><span>9 roots</span></div></div>
+        <div class="desc"><b>Hub-and-spoke landing zone</b> across four environments: private networking, VPN and NAT egress, a cert-only SSH jump host for unattended edge devices, centralised backup, scheduled cost control and Entra ID as code.</div>
+        <div class="stack">terraform · azurerm 4<br>entra id · azure backup<br>azure devops</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-aks-platform-helm-charts" data-repo="aks-platform-helm-charts">
+        <div class="name"><a href="https://github.com/narfprox/aks-platform-helm-charts" target="_blank" rel="noopener">aks-platform-helm-charts</a>
+          <div class="kind"><i class="ico" style="--b:#2B5FD9"><svg><use href="#i-helm"/></svg></i><i class="ico" style="--b:#E6522C"><svg><use href="#i-prom"/></svg></i><i class="ico" style="--b:#20B7C0"><svg><use href="#i-es"/></svg></i><span>10 charts</span></div></div>
+        <div class="desc"><b>The Kubernetes layer.</b> One Deployment template for every Java component with KEDA on Tomcat thread saturation, ephemeral Azure DevOps agents as KEDA ScaledJobs, ELK logging with a single-node-safe ILM, kube-prometheus-stack with tuned rules, backups, oauth2-proxy, Redash.</div>
+        <div class="stack">helm · keda<br>kube-prometheus-stack<br>elasticsearch · kubeconform</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-sre-alert-triage-bot" data-repo="sre-alert-triage-bot">
+        <div class="name"><a href="https://github.com/narfprox/sre-alert-triage-bot" target="_blank" rel="noopener">sre-alert-triage-bot</a>
+          <div class="kind"><i class="ico" style="--b:#3B7DC4"><svg><use href="#i-py"/></svg></i><i class="ico" style="--b:#E6522C"><svg><use href="#i-prom"/></svg></i><i class="ico" style="--b:#2088FF"><svg><use href="#i-gha"/></svg></i><span>python · helm</span></div></div>
+        <div class="desc"><b>Read-only alert triage for Kubernetes.</b> Alertmanager calls a FastAPI receiver, which runs Claude Code headless inside the cluster to inspect pods, events, logs and metrics, then posts a schema-enforced diagnosis to Slack before on-call opens a laptop. Zero writes, RBAC-bounded, tested.</div>
+        <div class="stack">python 3.12 · fastapi<br>claude code · alertmanager<br>helm · rbac</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-azure-devops-pipeline-library" data-repo="azure-devops-pipeline-library">
+        <div class="name"><a href="https://github.com/narfprox/azure-devops-pipeline-library" target="_blank" rel="noopener">azure-devops-pipeline-library</a>
+          <div class="kind"><i class="ico" style="--b:#0078D7"><svg><use href="#i-ado"/></svg></i><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#2B5FD9"><svg><use href="#i-helm"/></svg></i><span>yaml templates · 98 tests</span></div></div>
+        <div class="desc"><b>Reusable pipeline templates.</b> Terraform plan → approve → apply stages, Helm chart and application deploy steps, self-hosted agent lifecycle, secret handling, and the conventions that keep twenty-plus pipelines consistent.</div>
+        <div class="stack">azure pipelines<br>terraform · helm</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-ansible-linux-platform" data-repo="ansible-linux-platform">
+        <div class="name"><a href="https://github.com/narfprox/ansible-linux-platform" target="_blank" rel="noopener">ansible-linux-platform</a>
+          <div class="kind"><i class="ico" style="--b:#E0322A"><svg><use href="#i-ans"/></svg></i><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><span>7 roles · 3 environments</span></div></div>
+        <div class="desc"><b>The Linux estate around the clusters.</b> Management hosts, the edge hosts and the DR box, as one set of roles rather than a copy per environment. Brute-force protection that bans container traffic in <code>DOCKER-USER</code>, where the stock rules ban nothing, and inventory rules a script enforces because Ansible reports success against an inventory pointing at a network that no longer exists.</div>
+        <div class="stack">ansible · ansible-lint<br>fail2ban · nfs · docker<br>crowdstrike falcon</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-azure-finops-toolkit" data-repo="azure-finops-toolkit">
+        <div class="name"><a href="https://github.com/narfprox/azure-finops-toolkit" target="_blank" rel="noopener">azure-finops-toolkit</a>
+          <div class="kind"><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><i class="ico" style="--b:#3B7DC4"><svg><use href="#i-py"/></svg></i><span>4 tools · 69 tests</span></div></div>
+        <div class="desc"><b>The part of platform work that shows up on the invoice.</b> What a change will cost, as a pull-request comment that never blocks; what was actually spent, as a weekly report from Resource Graph and Cost Management; what is running for nothing, as six waste rules; and hibernating the DR environment, which is the largest single lever. Estimates and actuals are never blended into one figure.</div>
+        <div class="stack">python · kql · infracost<br>cost management · resource graph<br>azure pipelines</div>
+        <div class="st live">public soon</div>
+      </div>
+    </div>
+    <div class="idx-foot num"><span>24 terraform roots · 10 helm charts · 37 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
+  </section>
+
+  <section class="sec" id="platform">
+    <div class="sec-head"><h2>The platform</h2></div>
+    <p class="intro">These repositories show my expertise across every field of an end-to-end platform.</p>
+    <div class="layers">
+      <button class="layer" style="--tint:var(--sky)" data-repos="azure-landing-zone-terraform aks-saas-platform-terraform">
+        <div class="lh"><i><svg><use href="#l-found"/></svg></i><h3>Foundation</h3></div>
+        <ul><li>Hub-and-spoke VNets, private endpoints</li><li>Platform and workload subscriptions</li><li>Entra ID groups and service principals as code</li><li>Key Vault per environment</li></ul>
+        <div class="rel"><b>→</b> azure-landing-zone-terraform · aks-saas-platform-terraform</div>
+      </button>
+      <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform">
+        <div class="lh"><i><svg><use href="#l-comp"/></svg></i><h3>Compute</h3></div>
+        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts · ansible-linux-platform</div>
+      </button>
+      <button class="layer" style="--tint:var(--butter)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts">
+        <div class="lh"><i><svg><use href="#l-data"/></svg></i><h3>Data</h3></div>
+        <ul><li>MySQL Flexible Server, zone-redundant HA</li><li>PostgreSQL, Redis, Cosmos DB, NFS</li><li>Backups to object storage, restore drills</li><li>Warm-standby replicas in the DR region</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts (backups)</div>
+      </button>
+      <button class="layer" style="--tint:var(--mint)" data-repos="azure-devops-pipeline-library aks-platform-helm-charts aks-saas-platform-terraform">
+        <div class="lh"><i><svg><use href="#l-deliv"/></svg></i><h3>Delivery</h3></div>
+        <ul><li>Terraform plan → artifact → approval → apply</li><li>Helm releases from pipelines and from Terraform</li><li>Ephemeral self-hosted agents, one per job</li><li>Image builds to a registry</li></ul>
+        <div class="rel"><b>→</b> azure-devops-pipeline-library · aks-platform-helm-charts (ci-agents)</div>
+      </button>
+      <button class="layer" style="--tint:var(--peach)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts">
+        <div class="lh"><i><svg><use href="#l-edge"/></svg></i><h3>Edge</h3></div>
+        <ul><li>Cloudflare DNS, WAF and access rules</li><li>TLS via cert-manager</li><li>oauth2-proxy in front of internal tools</li><li>Status page bridge</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform (cloudflare) · aks-platform-helm-charts (oauth2-proxy)</div>
+      </button>
+      <button class="layer" style="--tint:var(--rose)" data-repos="aks-platform-helm-charts sre-alert-triage-bot">
+        <div class="lh"><i><svg><use href="#l-obs"/></svg></i><h3>Observability</h3></div>
+        <ul><li>kube-prometheus-stack, tuned rule set</li><li>Elasticsearch, Kibana, Filebeat, Vector archive</li><li>Blackbox probes, tenant uptime, Uptime Kuma</li><li>One shared Slack alert card, dead-man switch</li></ul>
+        <div class="rel"><b>→</b> aks-platform-helm-charts · sre-alert-triage-bot</div>
+      </button>
+      <button class="layer" style="--tint:var(--sky)" data-repos="aks-saas-platform-terraform sre-alert-triage-bot">
+        <div class="lh"><i><svg><use href="#l-res"/></svg></i><h3>Resilience</h3></div>
+        <ul><li>Warm-standby DR with a rehearsed lifecycle</li><li>Runbooks per alert family</li><li>AI-assisted read-only triage</li><li>Post-incident ADRs</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform (dr) · sre-alert-triage-bot</div>
+      </button>
+      <button class="layer" style="--tint:var(--butter)" data-repos="azure-finops-toolkit azure-landing-zone-terraform">
+        <div class="lh"><i><svg><use href="#l-cost"/></svg></i><h3>Cost</h3></div>
+        <ul><li>Scheduled shutdown of non-production</li><li>Budget alerts to Slack</li><li>Right-sizing from Azure Monitor</li><li>Cost per tenant</li></ul>
+        <div class="rel"><b>→</b> azure-finops-toolkit · azure-landing-zone-terraform</div>
+      </button>
+    </div>
+  </section>
+
+  <section class="sec" id="method">
+    <div class="sec-head"><h2>Method</h2></div>
+    <div class="method">
+      <div class="m" style="--tint:var(--lilac)">
+        <div class="n"><svg><use href="#l-code"/></svg></div>
+        <h3>Infrastructure is code, and code gets reviewed</h3>
+        <p>Nothing changes by hand. Every environment comes out of a Terraform root or a Helm chart, goes through a plan someone reads, and is applied by a pipeline, not a laptop.</p>
+      </div>
+      <div class="m" style="--tint:var(--mint)">
+        <div class="n"><svg><use href="#l-check"/></svg></div>
+        <h3>Validate like production</h3>
+        <p>QA practices apply to all of my work, not only to application code. <code>terraform fmt</code>, <code>validate</code> and tflint per root; <code>helm lint --strict</code> plus kubeconform against the real CRD catalog; hadolint, shellcheck, pytest, ruff. The same gates in CI on every repository.</p>
+      </div>
+      <div class="m" style="--tint:var(--sky)">
+        <div class="n"><svg><use href="#l-ci"/></svg></div>
+        <h3>Build it right, in every language</h3>
+        <p>I own the build pipelines for my own code and for the developers': Java with Maven and Gradle, Python, Angular, Node and npm, Lua. Pinned toolchains, cached dependencies, unit tests and linters as gates, and every artifact or image versioned and traceable to a commit.</p>
+      </div>
+      <div class="m" style="--tint:var(--butter)">
+        <div class="n"><svg><use href="#l-cd"/></svg></div>
+        <h3>Deploy through pipelines, and tell people</h3>
+        <p>Deployments are pipelines with environments, approvals and a rollback path: Helm releases, Terraform applies, VM playbooks. Every run reports to Slack or Teams with what changed, where and by whom. Failures notify the channel that can act, not everyone.</p>
+      </div>
+      <div class="m" style="--tint:var(--rose)">
+        <div class="n"><svg><use href="#l-obs"/></svg></div>
+        <h3>Observability as a method</h3>
+        <p>Prometheus and Alertmanager for metrics and alerting, with tuned rule sets and one shared alert card. Grafana for the questions people actually ask. ELK for logs, with lifecycle policies that fit the budget. Every alert has an owner, a runbook and a reason to exist. Anything that fires without action gets tuned or removed.</p>
+      </div>
+      <div class="m" style="--tint:var(--peach)">
+        <div class="n"><svg><use href="#l-book"/></svg></div>
+        <h3>Document everything, decisions included</h3>
+        <p>Every repository is documented in place, and the platform end to end in Confluence: architecture and network diagrams in draw.io, runbooks, onboarding guides and operating procedures. Architecture decision records capture why the non-obvious parts look the way they do, including the incidents that shaped them. The code says what. The docs say why.</p>
+      </div>
+      <div class="m" style="--tint:var(--butter)">
+        <div class="n"><svg><use href="#l-cost"/></svg></div>
+        <h3>FinOps is part of the job</h3>
+        <p>Cost is a design input, not an afterthought. Non-production environments shut down on a schedule, budgets alert to Slack before the invoice does, right-sizing comes from real Azure Monitor data, and cost per tenant is a query anyone can run. Reserved capacity where the load is predictable, autoscaling where it is not.</p>
+      </div>
+      <div class="m" style="--tint:var(--mint)">
+        <div class="n"><svg><use href="#l-term"/></svg></div>
+        <h3>Code, not only configuration</h3>
+        <p>I write software on my own, in Python, Go and Lua: platform tooling, automation and integrations, and personal projects published on <a href="https://github.com/narfprox" target="_blank" rel="noopener">GitHub</a>. Tested, linted and shipped through the same pipelines as everything else.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="stack">
+    <div class="sec-head"><h2>Stack</h2></div>
+    <div class="cols">
+      <div class="kv"><b>Cloud</b><span>Azure as primary: AKS, VNets and private endpoints, Key Vault, Entra ID, Azure Monitor, Backup, Cost Management. Also AWS and Google Cloud.</span></div>
+      <div class="kv"><b>IaC</b><span>Terraform with azurerm 4, for_each-first modules, multi-subscription; Ansible</span></div>
+      <div class="kv"><b>Kubernetes</b><span>Helm, KEDA, ingress-nginx, cert-manager, oauth2-proxy, RBAC, kubeconform</span></div>
+      <div class="kv"><b>Delivery</b><span>Azure DevOps pipelines and self-hosted agents, GitHub Actions, Jenkins, GHCR, plan → approve → apply; notifications to Slack and Teams</span></div>
+      <div class="kv"><b>Containers</b><span>Docker and BuildKit, multi-stage images, hadolint, image scanning, private registries (ACR, GHCR)</span></div>
+      <div class="kv"><b>Observability</b><span>Prometheus, Alertmanager, Grafana; Elasticsearch, Kibana, Filebeat, Vector; blackbox, Uptime Kuma</span></div>
+      <div class="kv"><b>Data</b><span>MySQL Flexible Server HA, PostgreSQL, Redis, Cosmos DB, NFS; backup and restore drills</span></div>
+      <div class="kv"><b>Network &amp; security</b><span>Hub-and-spoke, VPN and WireGuard, NAT egress, Cloudflare WAF, TLS, RBAC, Linux hardening, secrets in Key Vault</span></div>
+      <div class="kv"><b>Resilience</b><span>Warm-standby DR, rehearsed failover, dead-man switches, runbooks, post-incident reviews</span></div>
+      <div class="kv"><b>Languages &amp; builds</b><span>Python (FastAPI, pytest, ruff), Bash, HCL, YAML, KQL, SQL; build pipelines for Java (Maven, Gradle), Angular, Node and npm, Lua; own code in Python, Go and Lua</span></div>
+      <div class="kv"><b>Linux</b><span>Debian and Ubuntu servers, systemd, NFS, Nginx, Tomcat, OpenSSH with certificate auth</span></div>
+      <div class="kv"><b>AI tooling</b><span>Claude Code headless in pipelines and in-cluster; schema-enforced outputs, read-only tool boundaries</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" style="border-top:0; padding-top:12px">
+    <div class="contact">
+      <img class="portrait" src="assets/jean.jpg" alt="Jean Franco Sánchez Pita" width="132" height="164">
+      <div>
+        <h2>Let's talk.</h2>
+        <p>Hiring for platform, SRE or cloud infrastructure? Happy to walk through any repository, the decisions behind it, or how the DR rehearsal actually runs. Remote-first, Spanish and English.</p>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="mailto:jeanfrancosanchez@gmail.com">jeanfrancosanchez@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/jean-franco-s%C3%A1nchez-pita-1a084576" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/narfprox" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <footer>
+      <span>Jean Franco Sánchez Pita · Vigo · 2026</span>
+      <span>Hand-written HTML, no framework.</span>
+    </footer>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var layers = document.querySelectorAll('.layer');
+    var rows = document.querySelectorAll('.row[data-repo]');
+    function lit(list, on) {
+      rows.forEach(function (r) { r.classList.toggle('lit', on && list.indexOf(r.getAttribute('data-repo')) !== -1); });
+    }
+    layers.forEach(function (l) {
+      var list = (l.getAttribute('data-repos') || '').split(' ');
+      l.addEventListener('mouseenter', function () { lit(list, true); });
+      l.addEventListener('mouseleave', function () { lit(list, false); });
+      l.addEventListener('focus', function () { lit(list, true); });
+      l.addEventListener('blur', function () { lit(list, false); });
+      l.addEventListener('click', function () {
+        var target = document.getElementById('p-' + list[0]);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        rows.forEach(function (r) { r.classList.remove('flash'); });
+        list.forEach(function (id) { var r = document.getElementById('p-' + id); if (r) r.classList.add('flash'); });
+        setTimeout(function () { rows.forEach(function (r) { r.classList.remove('flash'); }); }, 2600);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Monthly. Outbound links break without anybody here touching anything: a
+    # repository renamed, a profile URL changed.
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    name: the page holds together
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check structure, anchors, icons and assets
+        run: python scripts/check_site.py
+
+  links:
+    name: outbound links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every external link
+        run: |
+          set -uo pipefail
+          failed=0
+          # Sorted and unique: the same repository is linked from the tools band
+          # and from its own row, and checking it twice proves nothing.
+          for url in $(grep -oE 'href="https://[^"]+"' index.html \
+                       | sed 's/href="//; s/"$//' | sort -u); do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
+            case "$code" in
+              2??|3??)
+                printf '  %-4s %s\n' "$code" "$url"
+                ;;
+              999)
+                # LinkedIn refuses automated requests. Not a broken link, and
+                # failing on it would make this job permanently red.
+                printf '  %-4s %s  (refuses automated requests)\n' "$code" "$url"
+                ;;
+              404)
+                if [[ "$url" == https://github.com/narfprox/* ]]; then
+                  # Expected while the platform repositories are still private:
+                  # an unauthenticated request cannot tell "private" from "gone".
+                  # TIGHTEN THIS once they are public — after that a 404 here
+                  # means a repository was renamed, and the page is wrong.
+                  printf '  %-4s %s  (still private)\n' "$code" "$url"
+                  echo "::warning::${url} is not publicly reachable yet"
+                else
+                  printf '  %-4s %s  <-- BROKEN\n' "$code" "$url"
+                  failed=1
+                fi
+                ;;
+              *)
+                printf '  %-4s %s  <-- BROKEN\n' "$code" "$url"
+                failed=1
+                ;;
+            esac
+          done
+          exit "$failed"
