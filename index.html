@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Jean Franco Sánchez Pita · DevOps, SRE and Platform Engineer">
-<meta name="twitter:description" content="Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery. Seven repositories, one platform.">
+<meta name="twitter:description" content="Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery. Nine repositories across Azure, AWS and Google Cloud.">
 <meta name="twitter:image" content="https://narfprox.github.io/assets/social-card.png">
 
 <!-- preconnect so the font request starts before the stylesheet is parsed -->
@@ -328,8 +328,8 @@
     <a class="tool" href="#p-sre-alert-triage-bot" style="--b:#3B7DC4"><span class="tile"><svg><use href="#i-py"/></svg></span>Python</a>
     <a class="tool" href="#p-aks-saas-platform-terraform" style="--b:#F38020"><span class="tile"><svg><use href="#i-cf"/></svg></span>Cloudflare</a>
     <a class="tool" href="#p-azure-devops-pipeline-library" style="--b:#D33833"><span class="tile"><svg><use href="#i-jk"/></svg></span>Jenkins</a>
-    <a class="tool" href="#stack" style="--b:#E8862B"><span class="tile"><svg><use href="#i-aws"/></svg></span>AWS</a>
-    <a class="tool" href="#stack" style="--b:#4285F4"><span class="tile"><svg><use href="#i-gcp"/></svg></span>Google Cloud</a>
+    <a class="tool" href="#p-aws-platform-terraform" style="--b:#E8862B"><span class="tile"><svg><use href="#i-aws"/></svg></span>AWS</a>
+    <a class="tool" href="#p-gcp-backup-archive-terraform" style="--b:#4285F4"><span class="tile"><svg><use href="#i-gcp"/></svg></span>Google Cloud</a>
   </div>
 
   <section class="sec" id="work">
@@ -394,28 +394,44 @@
         <div class="stack">python · kql · infracost<br>cost management · resource graph<br>azure pipelines</div>
         <div class="st live">public soon</div>
       </div>
+
+      <div class="row" id="p-aws-platform-terraform" data-repo="aws-platform-terraform">
+        <div class="name"><a href="https://github.com/narfprox/aws-platform-terraform" target="_blank" rel="noopener">aws-platform-terraform</a>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#E8862B"><svg><use href="#i-aws"/></svg></i><i class="ico" style="--b:#326CE5"><svg><use href="#i-k8"/></svg></i><span>8 modules · 4 roots · 8 ADRs</span></div></div>
+        <div class="desc"><b>A three-tier platform on AWS.</b> VPC with data subnets that have no default route, EKS with access entries instead of <code>aws-auth</code>, EC2 behind a load balancer, RDS PostgreSQL Multi-AZ, S3 and a scheduled Lambda. Dev, stage and prod are thin roots over one environment module: they differ in size, not in shape. NAT per zone where a zone outage must not become an outage for every private subnet; free S3 gateway endpoints everywhere, because the data charge hides on the NAT line. Zero SSH keys, IMDSv2 required, every log group declared.</div>
+        <div class="stack">terraform · aws 6<br>eks · rds postgresql · alb<br>lambda · s3 · cloudwatch</div>
+        <div class="st live">public soon</div>
+      </div>
+
+      <div class="row" id="p-gcp-backup-archive-terraform" data-repo="gcp-backup-archive-terraform">
+        <div class="name"><a href="https://github.com/narfprox/gcp-backup-archive-terraform" target="_blank" rel="noopener">gcp-backup-archive-terraform</a>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#4285F4"><svg><use href="#i-gcp"/></svg></i><span>4 modules · 2 roots · 6 ADRs</span></div></div>
+        <div class="desc"><b>An off-cloud backup archive for the Azure platform.</b> A copy inside the same account shares a failure domain with what it protects, so the archive lives on Google Cloud Storage with a one-way federation trust and nothing else in common. No keys: workload identity with a mandatory attribute condition, or the pool would accept any token GitHub signs. The writer can create objects and cannot delete them. And the alert fires on silence, not on failure, because a backup that stops is indistinguishable from a quiet weekend.</div>
+        <div class="stack">terraform · google 6<br>gcs · kms · lifecycle<br>workload identity · monitoring</div>
+        <div class="st live">public soon</div>
+      </div>
     </div>
-    <div class="idx-foot num"><span>24 terraform roots · 10 helm charts · 37 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
+    <div class="idx-foot num"><span>30 terraform roots · 10 helm charts · 51 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
   </section>
 
   <section class="sec" id="platform">
     <div class="sec-head"><h2>The platform</h2></div>
     <p class="intro">These repositories show my expertise across every field of an end-to-end platform.</p>
     <div class="layers">
-      <button class="layer" style="--tint:var(--sky)" data-repos="azure-landing-zone-terraform aks-saas-platform-terraform">
+      <button class="layer" style="--tint:var(--sky)" data-repos="azure-landing-zone-terraform aks-saas-platform-terraform aws-platform-terraform">
         <div class="lh"><i><svg><use href="#l-found"/></svg></i><h3>Foundation</h3></div>
-        <ul><li>Hub-and-spoke VNets, private endpoints</li><li>Platform and workload subscriptions</li><li>Entra ID groups and service principals as code</li><li>Key Vault per environment</li></ul>
-        <div class="rel"><b>→</b> azure-landing-zone-terraform · aks-saas-platform-terraform</div>
+        <ul><li>Hub-and-spoke VNets, private endpoints</li><li>Platform and workload subscriptions</li><li>Entra ID groups and service principals as code</li><li>Key Vault per environment</li><li>Three-tier VPC on AWS, NAT per zone, gateway endpoints</li></ul>
+        <div class="rel"><b>→</b> azure-landing-zone-terraform · aks-saas-platform-terraform · aws-platform-terraform</div>
       </button>
-      <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform">
+      <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform aws-platform-terraform">
         <div class="lh"><i><svg><use href="#l-comp"/></svg></i><h3>Compute</h3></div>
-        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li></ul>
-        <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts · ansible-linux-platform</div>
+        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li><li>EKS with access entries, EC2 behind ALB, Lambda</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts · ansible-linux-platform · aws-platform-terraform</div>
       </button>
-      <button class="layer" style="--tint:var(--butter)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts">
+      <button class="layer" style="--tint:var(--butter)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts aws-platform-terraform gcp-backup-archive-terraform">
         <div class="lh"><i><svg><use href="#l-data"/></svg></i><h3>Data</h3></div>
-        <ul><li>MySQL Flexible Server, zone-redundant HA</li><li>PostgreSQL, Redis, Cosmos DB, NFS</li><li>Backups to object storage, restore drills</li><li>Warm-standby replicas in the DR region</li></ul>
-        <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts (backups)</div>
+        <ul><li>MySQL Flexible Server, zone-redundant HA</li><li>PostgreSQL, Redis, Cosmos DB, NFS</li><li>RDS PostgreSQL Multi-AZ, hardened S3</li><li>Backups to object storage, restore drills</li><li>Off-cloud archive on GCS, retention and lifecycle</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform · aws-platform-terraform · gcp-backup-archive-terraform</div>
       </button>
       <button class="layer" style="--tint:var(--mint)" data-repos="azure-devops-pipeline-library aks-platform-helm-charts aks-saas-platform-terraform">
         <div class="lh"><i><svg><use href="#l-deliv"/></svg></i><h3>Delivery</h3></div>
@@ -427,20 +443,20 @@
         <ul><li>Cloudflare DNS, WAF and access rules</li><li>TLS via cert-manager</li><li>oauth2-proxy in front of internal tools</li><li>Status page bridge</li></ul>
         <div class="rel"><b>→</b> aks-saas-platform-terraform (cloudflare) · aks-platform-helm-charts (oauth2-proxy)</div>
       </button>
-      <button class="layer" style="--tint:var(--rose)" data-repos="aks-platform-helm-charts sre-alert-triage-bot">
+      <button class="layer" style="--tint:var(--rose)" data-repos="aks-platform-helm-charts sre-alert-triage-bot aws-platform-terraform gcp-backup-archive-terraform">
         <div class="lh"><i><svg><use href="#l-obs"/></svg></i><h3>Observability</h3></div>
-        <ul><li>kube-prometheus-stack, tuned rule set</li><li>Elasticsearch, Kibana, Filebeat, Vector archive</li><li>Blackbox probes, tenant uptime, Uptime Kuma</li><li>One shared Slack alert card, dead-man switch</li></ul>
-        <div class="rel"><b>→</b> aks-platform-helm-charts · sre-alert-triage-bot</div>
+        <ul><li>kube-prometheus-stack, tuned rule set</li><li>Elasticsearch, Kibana, Filebeat, Vector archive</li><li>Blackbox probes, tenant uptime, Uptime Kuma</li><li>One shared Slack alert card, dead-man switch</li><li>CloudWatch alarms; an alert that fires on silence</li></ul>
+        <div class="rel"><b>→</b> aks-platform-helm-charts · sre-alert-triage-bot · aws-platform-terraform · gcp-backup-archive-terraform</div>
       </button>
-      <button class="layer" style="--tint:var(--sky)" data-repos="aks-saas-platform-terraform sre-alert-triage-bot">
+      <button class="layer" style="--tint:var(--sky)" data-repos="aks-saas-platform-terraform sre-alert-triage-bot gcp-backup-archive-terraform">
         <div class="lh"><i><svg><use href="#l-res"/></svg></i><h3>Resilience</h3></div>
-        <ul><li>Warm-standby DR with a rehearsed lifecycle</li><li>Runbooks per alert family</li><li>AI-assisted read-only triage</li><li>Post-incident ADRs</li></ul>
-        <div class="rel"><b>→</b> aks-saas-platform-terraform (dr) · sre-alert-triage-bot</div>
+        <ul><li>Warm-standby DR with a rehearsed lifecycle</li><li>Backups in a second cloud, writer that cannot delete</li><li>Runbooks per alert family</li><li>AI-assisted read-only triage</li><li>Post-incident ADRs</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform (dr) · gcp-backup-archive-terraform · sre-alert-triage-bot</div>
       </button>
-      <button class="layer" style="--tint:var(--butter)" data-repos="azure-finops-toolkit azure-landing-zone-terraform">
+      <button class="layer" style="--tint:var(--butter)" data-repos="azure-finops-toolkit azure-landing-zone-terraform aws-platform-terraform gcp-backup-archive-terraform">
         <div class="lh"><i><svg><use href="#l-cost"/></svg></i><h3>Cost</h3></div>
-        <ul><li>Scheduled shutdown of non-production</li><li>Budget alerts to Slack</li><li>Right-sizing from Azure Monitor</li><li>Cost per tenant</li></ul>
-        <div class="rel"><b>→</b> azure-finops-toolkit · azure-landing-zone-terraform</div>
+        <ul><li>Scheduled shutdown of non-production</li><li>Budget alerts to Slack</li><li>Right-sizing from Azure Monitor</li><li>Cost per tenant</li><li>NAT and storage-class decisions priced per month</li></ul>
+        <div class="rel"><b>→</b> azure-finops-toolkit · azure-landing-zone-terraform · aws-platform-terraform · gcp-backup-archive-terraform</div>
       </button>
     </div>
   </section>
@@ -494,7 +510,7 @@
   <section class="sec" id="stack">
     <div class="sec-head"><h2>Stack</h2></div>
     <div class="cols">
-      <div class="kv"><b>Cloud</b><span>Azure as primary: AKS, VNets and private endpoints, Key Vault, Entra ID, Azure Monitor, Backup, Cost Management. Also AWS and Google Cloud.</span></div>
+      <div class="kv"><b>Cloud</b><span>Azure as primary: AKS, VNets and private endpoints, Key Vault, Entra ID, Azure Monitor, Backup, Cost Management. AWS: VPC, EKS, RDS, ALB, Lambda, S3, CloudWatch. Google Cloud: GCS, KMS, Workload Identity Federation, Cloud Monitoring.</span></div>
       <div class="kv"><b>IaC</b><span>Terraform with azurerm 4, for_each-first modules, multi-subscription; Ansible</span></div>
       <div class="kv"><b>Kubernetes</b><span>Helm, KEDA, ingress-nginx, cert-manager, oauth2-proxy, RBAC, kubeconform</span></div>
       <div class="kv"><b>Delivery</b><span>Azure DevOps pipelines and self-hosted agents, GitHub Actions, Jenkins, GHCR, plan → approve → apply; notifications to Slack and Teams</span></div>
