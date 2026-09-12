@@ -34,10 +34,15 @@ jobs:
         run: |
           set -uo pipefail
           failed=0
+          # Only <a href>. A plain grep for href also catches the preconnect and
+          # canonical <link> tags, and neither is a navigable URL: a preconnect
+          # host answers 404 to a GET by design, and the canonical URL is this
+          # site, which does not resolve until Pages is published.
+          #
           # Sorted and unique: the same repository is linked from the tools band
           # and from its own row, and checking it twice proves nothing.
-          for url in $(grep -oE 'href="https://[^"]+"' index.html \
-                       | sed 's/href="//; s/"$//' | sort -u); do
+          for url in $(grep -oE '<a [^>]*href="https://[^"]+"' index.html \
+                       | grep -oE 'https://[^"]+' | sort -u); do
             code=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
             case "$code" in
               2??|3??)
