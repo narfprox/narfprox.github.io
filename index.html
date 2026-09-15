@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Jean Franco Sánchez Pita · DevOps, SRE and Platform Engineer">
-<meta name="twitter:description" content="Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery. Nine repositories across Azure, AWS and Google Cloud.">
+<meta name="twitter:description" content="Azure, Kubernetes, Terraform, CI/CD, observability, disaster recovery. Ten repositories across Azure, AWS and Google Cloud.">
 <meta name="twitter:image" content="https://narfprox.github.io/assets/social-card.png">
 
 <!-- preconnect so the font request starts before the stylesheet is parsed -->
@@ -410,8 +410,16 @@
         <div class="stack">terraform · google 6<br>gcs · kms · lifecycle<br>workload identity · monitoring</div>
         <div class="st live">public soon</div>
       </div>
+
+      <div class="row" id="p-azure-ai-standby-terraform" data-repo="azure-ai-standby-terraform">
+        <div class="name"><a href="https://github.com/narfprox/azure-ai-standby-terraform" target="_blank" rel="noopener">azure-ai-standby-terraform</a>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><i class="ico" style="--b:#2088FF"><svg><use href="#i-gha"/></svg></i><span>5 modules · 2 roots · 8 ADRs</span></div></div>
+        <div class="desc"><b>A self-hosted AI assistant, held in standby for the day the hosted one is down.</b> An open-weight coding model served by vLLM through the OpenAI API on an A100, behind the team's VPN. One variable chooses cold, warm or active: weights pre-staged in a private store for a few euros a month, or a deallocated VM that answers in five minutes. No key anywhere: OIDC for the pipelines, a managed identity for the host, an API key born on first boot straight into Key Vault. A monthly drill brings it up, asks the model a question and puts it back; a 22:00 shutdown, a still-running alert and a budget make a forgotten GPU cost hours, not weeks.</div>
+        <div class="stack">terraform · azurerm 4 · azapi<br>vllm · gpu vm · key vault<br>github actions oidc</div>
+        <div class="st live">public soon</div>
+      </div>
     </div>
-    <div class="idx-foot num"><span>30 terraform roots · 10 helm charts · 51 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
+    <div class="idx-foot num"><span>32 terraform roots · 10 helm charts · 59 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
   </section>
 
   <section class="sec" id="platform">
@@ -423,9 +431,9 @@
         <ul><li>Hub-and-spoke VNets, private endpoints</li><li>Platform and workload subscriptions</li><li>Entra ID groups and service principals as code</li><li>Key Vault per environment</li><li>Three-tier VPC on AWS, NAT per zone, gateway endpoints</li></ul>
         <div class="rel"><b>→</b> azure-landing-zone-terraform · aks-saas-platform-terraform · aws-platform-terraform</div>
       </button>
-      <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform aws-platform-terraform">
+      <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform aws-platform-terraform azure-ai-standby-terraform">
         <div class="lh"><i><svg><use href="#l-comp"/></svg></i><h3>Compute</h3></div>
-        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li><li>EKS with access entries, EC2 behind ALB, Lambda</li></ul>
+        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li><li>EKS with access entries, EC2 behind ALB, Lambda</li><li>A GPU host for self-hosted inference, in three standby modes</li></ul>
         <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts · ansible-linux-platform · aws-platform-terraform</div>
       </button>
       <button class="layer" style="--tint:var(--butter)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts aws-platform-terraform gcp-backup-archive-terraform">
@@ -448,14 +456,14 @@
         <ul><li>kube-prometheus-stack, tuned rule set</li><li>Elasticsearch, Kibana, Filebeat, Vector archive</li><li>Blackbox probes, tenant uptime, Uptime Kuma</li><li>One shared Slack alert card, dead-man switch</li><li>CloudWatch alarms; an alert that fires on silence</li></ul>
         <div class="rel"><b>→</b> aks-platform-helm-charts · sre-alert-triage-bot · aws-platform-terraform · gcp-backup-archive-terraform</div>
       </button>
-      <button class="layer" style="--tint:var(--sky)" data-repos="aks-saas-platform-terraform sre-alert-triage-bot gcp-backup-archive-terraform">
+      <button class="layer" style="--tint:var(--sky)" data-repos="aks-saas-platform-terraform sre-alert-triage-bot gcp-backup-archive-terraform azure-ai-standby-terraform">
         <div class="lh"><i><svg><use href="#l-res"/></svg></i><h3>Resilience</h3></div>
-        <ul><li>Warm-standby DR with a rehearsed lifecycle</li><li>Backups in a second cloud, writer that cannot delete</li><li>Runbooks per alert family</li><li>AI-assisted read-only triage</li><li>Post-incident ADRs</li></ul>
-        <div class="rel"><b>→</b> aks-saas-platform-terraform (dr) · gcp-backup-archive-terraform · sre-alert-triage-bot</div>
+        <ul><li>Warm-standby DR with a rehearsed lifecycle</li><li>Backups in a second cloud, writer that cannot delete</li><li>An AI assistant standby, drilled monthly</li><li>Runbooks per alert family</li><li>AI-assisted read-only triage</li><li>Post-incident ADRs</li></ul>
+        <div class="rel"><b>→</b> aks-saas-platform-terraform (dr) · gcp-backup-archive-terraform · azure-ai-standby-terraform · sre-alert-triage-bot</div>
       </button>
-      <button class="layer" style="--tint:var(--butter)" data-repos="azure-finops-toolkit azure-landing-zone-terraform aws-platform-terraform gcp-backup-archive-terraform">
+      <button class="layer" style="--tint:var(--butter)" data-repos="azure-finops-toolkit azure-landing-zone-terraform aws-platform-terraform gcp-backup-archive-terraform azure-ai-standby-terraform">
         <div class="lh"><i><svg><use href="#l-cost"/></svg></i><h3>Cost</h3></div>
-        <ul><li>Scheduled shutdown of non-production</li><li>Budget alerts to Slack</li><li>Right-sizing from Azure Monitor</li><li>Cost per tenant</li><li>NAT and storage-class decisions priced per month</li></ul>
+        <ul><li>Scheduled shutdown of non-production</li><li>Budget alerts to Slack</li><li>Right-sizing from Azure Monitor</li><li>Cost per tenant</li><li>NAT and storage-class decisions priced per month</li><li>Cold / warm / active standby, priced per mode</li></ul>
         <div class="rel"><b>→</b> azure-finops-toolkit · azure-landing-zone-terraform · aws-platform-terraform · gcp-backup-archive-terraform</div>
       </button>
     </div>
@@ -521,7 +529,7 @@
       <div class="kv"><b>Resilience</b><span>Warm-standby DR, rehearsed failover, dead-man switches, runbooks, post-incident reviews</span></div>
       <div class="kv"><b>Languages &amp; builds</b><span>Python (FastAPI, pytest, ruff), Bash, HCL, YAML, KQL, SQL; build pipelines for Java (Maven, Gradle), Angular, Node and npm, Lua; own code in Python, Go and Lua</span></div>
       <div class="kv"><b>Linux</b><span>Debian and Ubuntu servers, systemd, NFS, Nginx, Tomcat, OpenSSH with certificate auth</span></div>
-      <div class="kv"><b>AI tooling</b><span>Claude Code headless in pipelines and in-cluster; schema-enforced outputs, read-only tool boundaries</span></div>
+      <div class="kv"><b>AI tooling</b><span>Claude Code headless in pipelines and in-cluster; schema-enforced outputs, read-only tool boundaries; self-hosted vLLM with open-weight models as a standby</span></div>
     </div>
   </section>
 
