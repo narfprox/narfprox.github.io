@@ -413,13 +413,13 @@
 
       <div class="row" id="p-azure-ai-standby-terraform" data-repo="azure-ai-standby-terraform">
         <div class="name"><a href="https://github.com/narfprox/azure-ai-standby-terraform" target="_blank" rel="noopener">azure-ai-standby-terraform</a>
-          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><i class="ico" style="--b:#2088FF"><svg><use href="#i-gha"/></svg></i><span>6 modules · 2 roots · 10 ADRs</span></div></div>
-        <div class="desc"><b>A frontier-class AI assistant, self-hosted and held in standby for the day the hosted one is down.</b> GLM-5.3 served by vLLM across an 8×H200 node, with MiniMax M3 on an H100 node and a 27B model on one A100 as ordered fallbacks: profiles that tie model, SKU, sharding and flags together, walked automatically when a node has no capacity. Weights staged ahead by a temporary VM into a private store and synced to local NVMe at boot; two modes, cold and active, in one variable. No key anywhere: OIDC for the pipelines, managed identities for the hosts, an API key born on first boot in Key Vault. A monthly drill brings the node up, asks the model a question and destroys it; a 22:00 shutdown, a still-running alert and a budget make a forgotten node cost hours, not weeks.</div>
-        <div class="stack">terraform · azurerm 4 · azapi<br>vllm · nd h200 · key vault<br>github actions oidc</div>
+          <div class="kind"><i class="ico" style="--b:#844FBA"><svg><use href="#i-tf"/></svg></i><i class="ico" style="--b:#0078D4"><svg><use href="#i-az"/></svg></i><i class="ico" style="--b:#2088FF"><svg><use href="#i-gha"/></svg></i><span>7 modules · 2 roots · 11 ADRs</span></div></div>
+        <div class="desc"><b>A frontier-class AI assistant, held in standby for the day the hosted one is down.</b> One flag chooses how it is served: Kimi K3 or DeepSeek V4 Pro as a serverless deployment on Microsoft Foundry, per token and up in a minute, or GLM-5.3 served by vLLM across our own 8×H200 node, sharing nothing with any hosted service. Profiles tie model, SKU, sharding and flags together and are walked automatically when a node has no capacity; weights are staged ahead by a temporary VM and synced to local NVMe at boot. No key anywhere: OIDC for the pipelines, managed identities for the hosts, an account created so its keys never enter state. A monthly drill brings the standby up, asks the model a question and puts it back; a 22:00 shutdown, a still-running alert and a budget make a forgotten node cost hours, not weeks.</div>
+        <div class="stack">terraform · azurerm 4 · azapi<br>foundry · vllm · nd h200<br>github actions oidc</div>
         <div class="st live">public soon</div>
       </div>
     </div>
-    <div class="idx-foot num"><span>32 terraform roots · 10 helm charts · 61 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
+    <div class="idx-foot num"><span>32 terraform roots · 10 helm charts · 62 ADRs · 207 tests</span><span>all validating, lint clean, CI green</span></div>
   </section>
 
   <section class="sec" id="platform">
@@ -433,7 +433,7 @@
       </button>
       <button class="layer" style="--tint:var(--lilac)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts ansible-linux-platform aws-platform-terraform azure-ai-standby-terraform">
         <div class="lh"><i><svg><use href="#l-comp"/></svg></i><h3>Compute</h3></div>
-        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li><li>EKS with access entries, EC2 behind ALB, Lambda</li><li>A GPU node for self-hosted inference, GLM-5.3 on 8×H200, in standby</li></ul>
+        <ul><li>AKS clusters: pre, pro, DR</li><li>Public and private ingress classes</li><li>KEDA-scaled workloads and agents</li><li>VM estate: management, VPN, CI</li><li>EKS with access entries, EC2 behind ALB, Lambda</li><li>An AI standby: Foundry serverless or a GLM-5.3 node on 8×H200, one flag</li></ul>
         <div class="rel"><b>→</b> aks-saas-platform-terraform · aks-platform-helm-charts · ansible-linux-platform · aws-platform-terraform</div>
       </button>
       <button class="layer" style="--tint:var(--butter)" data-repos="aks-saas-platform-terraform aks-platform-helm-charts aws-platform-terraform gcp-backup-archive-terraform">
@@ -529,7 +529,7 @@
       <div class="kv"><b>Resilience</b><span>Warm-standby DR, rehearsed failover, dead-man switches, runbooks, post-incident reviews</span></div>
       <div class="kv"><b>Languages &amp; builds</b><span>Python (FastAPI, pytest, ruff), Bash, HCL, YAML, KQL, SQL; build pipelines for Java (Maven, Gradle), Angular, Node and npm, Lua; own code in Python, Go and Lua</span></div>
       <div class="kv"><b>Linux</b><span>Debian and Ubuntu servers, systemd, NFS, Nginx, Tomcat, OpenSSH with certificate auth</span></div>
-      <div class="kv"><b>AI tooling</b><span>Claude Code headless in pipelines and in-cluster; schema-enforced outputs, read-only tool boundaries; self-hosted vLLM serving open-weight frontier models (GLM-5.3) on GPU nodes as a standby</span></div>
+      <div class="kv"><b>AI tooling</b><span>Claude Code headless in pipelines and in-cluster; schema-enforced outputs, read-only tool boundaries; Foundry serverless deployments and self-hosted vLLM on GPU nodes, as a standby behind one flag</span></div>
     </div>
   </section>
 
